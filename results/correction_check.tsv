@@ -1,0 +1,44 @@
+sample_id	verse_id	all_found	skr_label_after	skr_perfect_after	lg_agree_after	name_agree_after	gold_after
+1	Sisupalavadha:MSpv_5.67	True	vasantatilakā [14: tBjjgg]	True	True	True	True
+2	Sisupalavadha:MSpv_7.60	True	puṣpitāgrā = [12: nnry] 1,3 + [13: njjrg] 2,4	False	True	True	False
+3	Sisupalavadha:MSpv_1.68	True	vaṃśastha [12: jtjr]	True	True	True	True
+4	Sisupalavadha:MSpv_10.11	True	svāgatā [11: rnBgg]	True	True	True	True
+5	Sisupalavadha:MSpv_8.63	True	praharṣiṇī [13: mnjrg]	True	True	True	True
+6	Kiratarjuniya:BhKir_13.59	True	rathoddhatā [11: rnrlg]	True	True	True	True
+7	Sisupalavadha:MSpv_18.65	True	śālinī [11: mttgg]	True	True	True	True
+8	Sisupalavadha:MSpv_4.21	True	drutavilambita [12: nBBr]	True	True	True	True
+9	Sisupalavadha:MSpv_1.62	True	vaṃśastha [12: jtjr]	True	True	True	True
+10	Sisupalavadha:MSpv_6.56	True	drutavilambita [12: nBBr]	True	True	True	True
+11	Kiratarjuniya:BhKir_18.11	True	drutavilambita [12: nBBr]	True	True	True	True
+12	Sisupalavadha:MSpv_5.34	True	vasantatilakā [14: tBjjgg] (pāda 3 ūnākṣarā)	False	True	True	False
+13	Sisupalavadha:MSpv_3.42	True	upajāti triṣṭubh: indravajrā 2,3,4; upendravajrā 1	True	True	True	True
+14	Sisupalavadha:MSpv_7.20	True	puṣpitāgrā = [12: nnry] 1,3 + [13: njjrg] 2,4	False	True	True	False
+15	Raghuvamsa:Ragh_5.68	True	vasantatilakā [14: tBjjgg]	True	True	True	True
+16	Sisupalavadha:MSpv_9.81	True	pramitākṣarā [12: sjss]	True	True	True	True
+17	Sisupalavadha:MSpv_11.55	True	mālinī [15: nnmyy]	True	True	True	True
+18	Raghuvamsa:Ragh_11.58	True	rathoddhatā [11: rnrlg]	True	True	True	True
+19	Bhallatasataka:Bhall_31	True	drutavilambita [12: nBBr]	True	True	True	True
+20	Raghuvamsa:Ragh_18.21	True	upendravajrā [11: jtjgg]	True	True	True	True
+21	Sisupalavadha:MSpv_5.55	True	vasantatilakā [14: tBjjgg]	True	True	True	True
+22	Bhartrhari:BharSt_3.31	True	śārdūlavikrīḍita [19: msjsttg]	True	True	True	True
+23	Bhallatasataka:Bhall_40	True	śārdūlavikrīḍita [19: msjsttg]	True	True	True	True
+24	Sisupalavadha:MSpv_7.22	True	puṣpitāgrā = [12: nnry] 1,3 + [13: njjrg] 2,4	True	True	True	True
+25	Sisupalavadha:MSpv_19.59	True	anuṣṭubh (1,2: pathyā; 3,4: asamīcīnā, [vipulāyām asatyām] ya[gaṇaḥ ayujaḥ] caturthāt [syāt])	False	True	True	False
+26	Bhagavadgita:BhG_13.11	True	anuṣṭubh (1,2: pathyā; 3,4: pathyā)	True	True	True	True
+27	Saundarananda:Saund_13.47	True	anuṣṭubh (1,2: pathyā; 3,4: pathyā)	True	True	True	True
+29	Bhagavadgita:BhG_3.22	True	anuṣṭubh (1,2: pathyā; 3,4: pathyā)	True	True	True	True
+30	Raghuvamsa:Ragh_12.12	True	anuṣṭubh (1,2: na-vipulā; 3,4: pathyā)	True	True	True	True
+31	Sisupalavadha:MSpv_9.11	True	pramitākṣarā [12: sjss]	True	True	True	True
+32	Sisupalavadha:MSpv_19.101	True	anuṣṭubh (1,2: pathyā; 3,4: pathyā)	True	True	True	True
+33	Raghuvamsa:Ragh_11.24	True	rathoddhatā [11: rnrlg]	True	True	True	True
+34	Raghuvamsa:Ragh_17.9	True	anuṣṭubh (1,2: pathyā; 3,4: pathyā)	True	True	True	True
+36	Sisupalavadha:MSpv_10.68	True	svāgatā [11: rnBgg]	True	True	True	True
+46	Bhagavadgita:BhG_11.32	True	anuṣṭubh (1,2: ūnākṣarā; 3,4: ūnākṣarā; 5,6: ūnākṣarā)	False	False	False	False
+47	Buddhacarita:BC_4.77	True	anuṣṭubh (1,2: pathyā; 3,4: bha-vipulā)	True	True	True	True
+48	Bhartrhari:BharSt_1.3	True	āryā	True	True	False	False
+49	Sisupalavadha:MSpv_3.10	True	indravajrā [11: ttjgg]	True	True	True	True
+50	Sisupalavadha:MSpv_4.51	True	anuṣṭubh (1,2: ūnākṣarā; 3,4: adhikākṣarā; 5,6: ūnākṣarā)	False	False	False	False
+51	Bhartrhari:BharSt_2.46	True	śārdūlavikrīḍita [19: msjsttg]	True	False	True	False
+52	Bhallatasataka:Bhall_37	True	śārdūlavikrīḍita [19: msjsttg]	True	True	True	True
+53	Sisupalavadha:MSpv_1.26	True	vaṃśastha [12: jtjr]	True	True	True	True
+61	Saundarananda:Saund_16.49	True	upajāti triṣṭubh: indravajrā 1,2,3; upendravajrā 4	True	True	False	False
