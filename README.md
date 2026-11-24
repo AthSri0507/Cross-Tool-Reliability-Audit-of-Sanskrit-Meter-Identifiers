@@ -1,6 +1,6 @@
 # Cross-Tool Reliability Audit of Sanskrit Meter Identifiers
 
-A systematic audit of two open-source Sanskrit meter identifiers, **chanda** and **skrutable**, on 7,714 verses from twelve classical works, with an independent third scanner (**vidyut-chandas**) as a cross-check.
+This repository compares two open-source programs that identify Sanskrit meter, **chanda** and **skrutable**. We ran both over 7,714 verses taken from twelve classical works and used a third, separately written scanner (**vidyut-chandas**) to check the results.
 
 The repository releases three things:
 - **A 6,115-verse consensus dataset** of Sanskrit verse labelled with syllable weights and meter.
@@ -31,30 +31,30 @@ The repository releases three things:
 
 ## Why this project
 
-Sanskrit verse is built from fixed patterns of light (*laghu*, L) and heavy (*guru*, G) syllables. Because syllable weight follows deterministic rules, meter identification is usually handled by rule-based software.
+Every Sanskrit meter is a fixed sequence of light (*laghu*, L) and heavy (*guru*, G) syllables. Whether a syllable is light or heavy is settled by a handful of mechanical rules, which is why meter detection is normally left to rule-based programs.
 
-These tools are increasingly used as ground truth: to filter training corpora, to score generated poetry, and to detect errors in digitised texts. Yet their published evaluations cover only around a thousand verses.
+Such programs are now relied on as a source of truth. They decide which verses go into training corpora, they score poems produced by language models, and they are used to spot mistakes in digitised texts. Their published evaluations, however, use only about a thousand verses each.
 
-This project asks four questions:
-1. How often do two independent identifiers agree?
-2. Why do they disagree when they do?
-3. What does it take to turn their output into reliable labels?
-4. Do their differences affect published downstream work?
+We set out to answer four questions:
+1. On a large corpus, how often do two separately written identifiers give the same answer?
+2. When their answers differ, what is the cause?
+3. What has to happen before their output can serve as reliable labels?
+4. Have these differences affected work that is already published?
 
 ## Key findings
 
 | Finding | Evidence |
 |---|---|
-| Input handling dominates line-level disagreement. | On e-text as printed, the tools agree on only **74.3%** of lines. A boundary-aware word join that resyllabifies consonant-final words and keeps vowel hiatus apart raises agreement to **99.95%**. The 8 remaining lines all contain malformed characters. |
-| Verse-level agreement is high once input is fixed. | The two tools agree completely on **79.3%** of verses (6,115 of 7,714). |
-| No scansion error on well-formed text. | A census of all 82 verses whose scansions differ finds that every difference lies at a pāda or line boundary (75 verses) or involves malformed characters (7). |
-| A third scanner confirms the consensus. | vidyut-chandas gives the same L/G sequence on **99.95%** of consensus lines, setting aside the line-final syllable. For the 2,644 consensus verses whose meter it knows, it gives the same meter name 94.25% of the time. |
-| The tools follow different prosodic conventions. | skrutable accepts a light pāda-final syllable in 831 samavṛtta verses, but in none of 217 ardhasama or viṣama verses. chanda names no meter when a pāda ends light. chanda does not cover the anuṣṭubh *vipulā* forms. |
-| Flagged faults are mostly e-text errors. | In a stratified sample, 23 of 24 verses with a length or internal deviation contain a text error. Each correction was tested by re-scanning. |
-| Corpus issues. | 906 sandhi-dissolved duplicate verses in four GRETIL files. The sampled GRETIL errors also reappear in Sanskrit Wikisource. |
-| Downstream effects on a published benchmark (Chandomitra, EACL 2026). | Its chanda-filtered dataset contains *vipulā* forms in **0.05%** of verses, against **20.1%** in the Rāmāyaṇa. Its released metric scores every human reference verse as non-metrical under skrutable ≥ 2.2.0, because of a change in the label format. |
+| Most line-level disagreement comes from how the input is prepared. | With the e-text fed in unchanged, only **74.3%** of lines get the same L/G pattern from both tools. Our boundary-aware word join (a consonant-final word is attached to the next word, while vowel hiatus stays split) brings this to **99.95%**. Each of the 8 lines still in dispute has malformed characters. |
+| Once the input is fixed, whole verses mostly agree too. | 6,115 of the 7,714 verses (**79.3%**) get identical results from both tools. |
+| Well-formed text produced no scansion errors. | There are 82 verses where the two scansions disagree, and we sorted all of them. In 75, every mismatch falls on the last syllable of a pāda or line; the remaining 7 contain malformed characters. |
+| An independent third scanner agrees with the consensus. | Ignoring the last syllable of each line, vidyut-chandas matches the consensus L/G pattern on **99.95%** of lines. Of the 2,644 consensus verses in meters it knows, it assigns the same name to 94.25%. |
+| The tools apply different prosodic conventions. | skrutable lets a light pāda-final syllable count as heavy in samavṛtta meters (831 verses pass this way), yet in ardhasama and viṣama meters it rejects all 217 such verses. chanda gives no meter name at all when a pāda ends light, and it has no rule for the anuṣṭubh *vipulā* variants. |
+| Faults flagged by the tools are mostly typos in the e-texts. | Among sampled verses with a length or internal deviation, 23 of 24 have an error in the text. Every proposed correction was scanned again to confirm it. |
+| Problems in the corpus itself. | Four GRETIL files carry 906 extra copies of verses with the sandhi undone. Errors we sampled in GRETIL also show up in Sanskrit Wikisource. |
+| Effects on a published benchmark (Chandomitra, EACL 2026). | Only **0.05%** of verses in its chanda-filtered dataset use a *vipulā* form; in the Rāmāyaṇa the figure is **20.1%**. With skrutable 2.2.0 or later, a changed label format makes its released metric reject every human-written reference verse. |
 
-![Line-level agreement between chanda and skrutable per text, under three input modes](figures/fig_line_agreement.png)
+![Per-text line agreement of chanda with skrutable under the three chanda input modes](figures/fig_line_agreement.png)
 
 ## The dataset
 
@@ -67,7 +67,7 @@ A verse is included only when both of these hold:
 - skrutable judges it a perfect fit for its meter;
 - both tools give the identical L/G sequence and agree on the meter name.
 
-> **Silver standard.** Membership rests on agreement between independent tools, not on manual verification. An error shared by both tools would pass the filter; the third-scanner check reduces, but does not remove, that risk.
+> **Silver standard.** Nobody has checked these verses by hand; they are in the set because independent tools agree on them. A mistake made by both tools would still get through. The vidyut-chandas check makes that less likely but cannot exclude it.
 
 | File | Format |
 |---|---|
@@ -271,29 +271,29 @@ python src/skrutable_version_probe.py installed test
 
 ## Method in brief
 
-1. **Line level.** Each line is scanned by both tools. chanda treats a space as a syllable boundary, so it is run on three versions of the input:
-   - **(a)** the text as printed;
-   - **(b)** the text with all spaces removed;
-   - **(c)** the boundary-aware join. Words are concatenated, except where a vowel-final word meets a vowel-initial word, where the space is kept. This encodes two rules:
+1. **Line level.** Both tools scan every line. Because chanda reads each space as the end of a syllable, it gets the input in three forms:
+   - **(a)** unchanged;
+   - **(b)** with every space deleted;
+   - **(c)** after the boundary-aware join, which glues neighbouring words together but leaves the space in place when a vowel-final word is followed by a vowel-initial one. Two prosodic rules follow from this:
      - *tad evam* → *ta-de-vam*;
      - *vyatikara iva* → *ra-i-va*, not the diphthong *rai*.
-2. **Verse level.** skrutable identifies the meter of the whole verse and reports whether it fits perfectly; chanda proposes meters per line. Each verse falls into one outcome:
-   - **A.** Full agreement: the consensus set.
-   - **B.** Same L/G, but skrutable flags a fault.
-   - **C.** The L/G sequences differ.
-   - **D.** The meter names differ.
-3. **Census.** All C and D verses are classified by deterministic rules: boundary-only difference, malformed characters, vipulā, pāda-final, coverage, or naming.
-4. **Third scanner.** vidyut-chandas, an independent implementation, re-scans every line.
-5. **Adjudication.** A stratified sample of 66 non-consensus verses is coded with the codebook. Each proposed text correction is applied and re-scanned. Readings are checked against independent e-texts where one is reachable.
-6. **Case study.** The same tools are examined inside the released Chandomitra dataset and evaluation code.
+2. **Verse level.** skrutable takes the verse as a whole, names its meter and says whether it fits exactly; chanda suggests meters line by line. Every verse is then given one outcome:
+   - **A.** The tools agree completely; these verses form the consensus set.
+   - **B.** The L/G patterns match, but skrutable reports a fault.
+   - **C.** The L/G patterns are different.
+   - **D.** The tools give different meter names.
+3. **Census.** Every C and D verse is sorted by fixed rules into one of these groups: difference only at a boundary, malformed characters, vipulā, pāda-final, coverage, or naming.
+4. **Third scanner.** Every line is scanned again with vidyut-chandas, which was written independently of the other two tools.
+5. **Adjudication.** A stratified sample of 66 verses that did not make the consensus set is coded using the codebook. Any proposed text correction is applied and scanned again, and readings are compared with independent e-texts when one can be found.
+6. **Case study.** We look at how the same tools behave inside Chandomitra's released dataset and evaluation code.
 
 ## Limitations
 
-- **Tool coverage.** Two primary tools are compared, and mātrā meters are almost absent from the consensus set.
-- **Single coder for outcome B.** The cause shares for outcome B come from a stratified sample coded in a single pass; inter-annotator agreement is pending.
-- **Unattested corrections.** Nine corrections are metrically sufficient but not confirmed against a printed edition.
-- **Corpus-specific rates.** Edition conventions differ across GRETIL files, so absolute rates hold for this corpus only. The failure modes and the convention findings do not depend on the corpus.
-- **Case study scope.** The Chandomitra dataset and the GRETIL Rāmāyaṇa follow different editions. The model outputs are not public, so the metric was tested on reference verses only.
+- **Only two main tools.** The comparison covers two primary identifiers, and the consensus set contains very few mātrā meters.
+- **One round of coding for outcome B.** The cause percentages given for outcome B are based on a stratified sample that was coded only once. No second coder has been through it yet, so inter-annotator agreement is still to be measured.
+- **Corrections not attested.** Nine corrections restore the meter but have not been checked against a printed edition.
+- **Rates depend on the corpus.** Editorial practice is not uniform across the GRETIL files, so the percentages describe this corpus. The types of failure we found, and the convention differences, are expected to apply more widely.
+- **Limits of the case study.** Chandomitra's data is based on a different edition of the Rāmāyaṇa from the GRETIL one. Its model outputs were never released, so only the reference verses could be used to test the metric.
 
 ## Citation
 
